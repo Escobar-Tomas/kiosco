@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+/* 1. Obligamos al navegador a usar el tema claro para evitar que ponga fondos negros y letras blancas */
+:root {
+  color-scheme: light;
+}
+
+/* 2. Forzamos los colores de los inputs usando CSS clásico puro para no pelear con el compilador de Tailwind */
+input, select, textarea {
+  color: #111827 !important; /* Equivalente a text-gray-900 */
+  background-color: #ffffff;
+}
+
+input::placeholder, textarea::placeholder {
+  color: #9ca3af !important; /* Equivalente a text-gray-400 */
+}
