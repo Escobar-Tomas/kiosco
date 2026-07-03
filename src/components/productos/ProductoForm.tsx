@@ -3,7 +3,7 @@
 
 import { useState, useEffect } from 'react'
 import { createClient } from '@/services/supabaseBrowser'
-import CamaraScanner from './CamaraScanner'
+import CamaraScanner from '@/components/productos/CamaraScanner'
 
 interface Categoria { id: string; nombre: string }
 interface ProductoFormProps { onExito: () => void; onCancelar: () => void }
@@ -29,17 +29,8 @@ export default function ProductoForm({ onExito, onCancelar }: ProductoFormProps)
 
   useEffect(() => {
     async function cargarCategorias() {
-      const { data, error } = await supabase
-        .from('categorias')
-        .select('id, nombre')
-        .order('nombre')
-      
-      if (error) {
-        console.error("⛔ ERROR SUPABASE AL CARGAR CATEGORÍAS:", error.message)
-      } else if (data) {
-        console.log("✅ Categorías cargadas:", data.length)
-        setCategorias(data)
-      }
+      const { data } = await supabase.from('categorias').select('id, nombre').order('nombre')
+      if (data) setCategorias(data)
     }
     cargarCategorias()
   }, [])
@@ -121,7 +112,7 @@ export default function ProductoForm({ onExito, onCancelar }: ProductoFormProps)
         </div>
         
         <div className="col-span-2">
-          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Categoría</label>
+          <label className="block text-xs font-bold text-gray-500 uppercase tracking-wider mb-1">Categoría Atómica</label>
           <select name="categoria_id" value={form.categoria_id} onChange={handleInputChange} className="w-full px-3 py-2 border rounded-lg bg-white h-[42px]">
             <option value="">-- Seleccionar --</option>
             {categorias.map(c => <option key={c.id} value={c.id}>{c.nombre}</option>)}
